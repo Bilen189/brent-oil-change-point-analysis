@@ -67,3 +67,21 @@ Completed components include:
 The challenge document describes the dataset as ending in September 2022.
 However, the supplied CSV contains observations through November 2022. This
 project retains the complete supplied dataset and documents the difference.
+
+## Structured Event Dataset
+
+The repository contains a manually curated structured event dataset located at:
+
+data/events/key_oil_market_events.csv
+
+The dataset contains 17 historical events, including:
+
+- OPEC production decisions
+- Geopolitical conflicts
+- Economic crises
+- International sanctions
+- Natural disasters
+- COVID-19 pandemic
+- Russia–Ukraine conflict
+
+This dataset is used throughout the analysis to compare statistically detected change points with important historical events.
