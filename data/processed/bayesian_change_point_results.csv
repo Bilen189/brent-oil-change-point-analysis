@@ -1,0 +1,12 @@
+metric,value
+change_point_index_median,214
+change_point_date_median,2005-03-31
+change_point_date_hdi_lower,2004-12-31
+change_point_date_hdi_upper,2005-07-31
+mean_before_median,21.4273
+mean_after_median,75.8026
+absolute_mean_change,54.3753
+percentage_mean_change,253.7667
+probability_mean_increased,1.0
+probability_mean_decreased,0.0
+residual_sigma_median,18.63

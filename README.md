@@ -85,3 +85,26 @@ The dataset contains 17 historical events, including:
 - Russia–Ukraine conflict
 
 This dataset is used throughout the analysis to compare statistically detected change points with important historical events.
+
+## Task 2 Results
+
+A Bayesian one-change-point model was fitted to monthly average Brent oil
+prices using PyMC.
+
+Key outputs include:
+
+- MCMC sampling with four chains
+- R-hat and effective sample-size diagnostics
+- Trace plots and posterior distributions
+- Detection of a dominant structural break around March 2005
+- Quantification of average prices before and after the change
+- Comparison with the curated oil-market event dataset
+- Explicit discussion of uncertainty, limitations, and causal interpretation
+
+Generated model outputs are stored in:
+
+- `data/processed/bayesian_change_point_results.csv`
+- `data/processed/bayesian_change_point_summary.csv`
+- `data/processed/event_association_results.csv`
+
+Visualizations are stored in `reports/figures/`.
