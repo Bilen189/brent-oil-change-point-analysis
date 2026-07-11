@@ -18,3 +18,18 @@
 
 Run the notebook from top to bottom using the virtual environment defined in
 the project root.
+
+## Task 2: Bayesian Change Point Modeling
+
+`task_2_change_point_modeling.ipynb` includes:
+
+- Brent oil price data preparation
+- Daily log-return calculation
+- Rolling volatility analysis
+- Monthly aggregation for Bayesian modeling
+- PyMC change point model
+- MCMC sampling
+- Convergence diagnostics
+- Posterior interpretation
+- Event association
+- Quantified before-and-after price impact
