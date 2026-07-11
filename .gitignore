@@ -21,9 +21,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Generated analysis outputs
-reports/figures/*.png
-reports/figures/*.jpg
 
 # PyMC and temporary files
 *.pkl
