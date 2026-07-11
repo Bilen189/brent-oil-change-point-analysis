@@ -44,3 +44,26 @@ to November 2022.
 ├── .gitignore
 ├── README.md
 └── requirements.txt
+
+## Task 1 Progress
+
+Task 1 establishes the analytical foundation for the project.
+
+Completed components include:
+
+- Project and repository structure
+- Raw data validation
+- Structured dataset of major oil-market events
+- Historical trend analysis
+- Log-return calculation
+- Stationarity testing
+- Rolling volatility analysis
+- Change point modeling plan
+- Assumptions and limitations
+- Discussion of temporal association versus causal evidence
+
+## Important Data Note
+
+The challenge document describes the dataset as ending in September 2022.
+However, the supplied CSV contains observations through November 2022. This
+project retains the complete supplied dataset and documents the difference.
