@@ -57,10 +57,6 @@ def validate_events(file_path: Path) -> pd.DataFrame:
         raise FileNotFoundError(f"Events dataset was not found at: {file_path}")
 
     events = pd.read_csv(file_path)
-    events["event_date"] = pd.to_datetime(
-        events["event_date"],
-        errors="coerce",
-    )
 
     required_columns = {
         "event_date",
@@ -78,6 +74,22 @@ def validate_events(file_path: Path) -> pd.DataFrame:
             f"Events dataset is missing columns: {sorted(missing_columns)}"
         )
 
+    events["event_date"] = pd.to_datetime(
+        events["event_date"],
+        errors="coerce",
+    )
+
+    if len(events) < 10:
+        raise ValueError(
+            f"At least 10 events are required, but only {len(events)} were found."
+        )
+
+    if events["event_date"].isna().any():
+        raise ValueError("The event dataset contains invalid or missing event dates.")
+
+    if events["event_name"].isna().any():
+        raise ValueError("The event dataset contains missing event names.")
+
     print("\nEvent dataset validation")
     print("-" * 40)
     print(f"Number of events: {len(events)}")
@@ -86,6 +98,7 @@ def validate_events(file_path: Path) -> pd.DataFrame:
     print(f"Missing event dates: {events['event_date'].isna().sum()}")
 
     return events
+
 
 if __name__ == "__main__":
     load_and_validate_data(DATA_PATH)
