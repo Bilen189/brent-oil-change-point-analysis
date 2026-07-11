@@ -1,0 +1,2 @@
+change_point_date,nearest_event_date,nearest_event_name,nearest_event_category,days_between_change_and_event,mean_before,mean_after,absolute_change,percentage_change,probability_of_increase
+2005-03-31,2005-08-29,Hurricane Katrina reaches US Gulf Coast,Natural disaster,151,21.4273,75.8026,54.3753,253.7667,1.0
