@@ -103,6 +103,26 @@ function CustomTooltip({ active, payload, label }) {
   );
 }
 
+function toMonthEndDate(value) {
+  if (!value) {
+    return null;
+  }
+
+  const date = new Date(`${value}T00:00:00`);
+
+  if (Number.isNaN(date.getTime())) {
+    return value;
+  }
+
+  const monthEnd = new Date(
+    date.getFullYear(),
+    date.getMonth() + 1,
+    0,
+  );
+
+  return monthEnd.toISOString().slice(0, 10);
+}
+
 function App() {
   const [overview, setOverview] = useState(null);
   const [monthlyPrices, setMonthlyPrices] = useState([]);
@@ -112,6 +132,9 @@ function App() {
   const [selectedEventId, setSelectedEventId] = useState("");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [startDate, setStartDate] = useState("1987-05-20");
+  const [endDate, setEndDate] = useState("2022-11-14");
+  const [filteredPrices, setFilteredPrices] = useState([]);
 
   async function loadDashboardData() {
     setLoading(true);
@@ -147,6 +170,33 @@ function App() {
       setLoading(false);
     }
   }
+
+async function applyDateFilter() {
+  setLoading(true);
+  setErrorMessage("");
+
+  try {
+    const response = await axios.get(`${API_BASE_URL}/prices`, {
+      params: {
+        start_date: startDate,
+        end_date: endDate,
+      },
+    });
+
+    setFilteredPrices(response.data.data ?? []);
+  } catch (error) {
+    console.error("Date-filter API error:", error);
+
+    const apiMessage = error.response?.data?.message;
+
+    setErrorMessage(
+      apiMessage ||
+        "The selected date range could not be loaded.",
+    );
+  } finally {
+    setLoading(false);
+  }
+}
 
 useEffect(() => {
   let isMounted = true;
@@ -209,12 +259,19 @@ useEffect(() => {
 
   const changeMetrics = changePoint?.metrics ?? {};
 
-  const chartData = useMemo(() => {
-    return monthlyPrices.map((record) => ({
+const chartData = useMemo(() => {
+  if (filteredPrices.length > 0) {
+    return filteredPrices.map((record) => ({
       date: record.Date,
-      price: Number(record.Monthly_Average_Price),
+      price: Number(record.Price),
     }));
-  }, [monthlyPrices]);
+  }
+
+  return monthlyPrices.map((record) => ({
+    date: record.Date,
+    price: Number(record.Monthly_Average_Price),
+  }));
+}, [filteredPrices, monthlyPrices]);
 
   if (loading) {
     return <LoadingScreen />;
@@ -301,7 +358,44 @@ useEffect(() => {
               </span>
             </div>
           </div>
+          
 
+          <div className="filter-bar">
+            <label>
+              <span>Start date</span>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(event) => setStartDate(event.target.value)}
+              />
+            </label>
+
+            <label>
+              <span>End date</span>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(event) => setEndDate(event.target.value)}
+              />
+            </label>
+
+            <button type="button" onClick={applyDateFilter}>
+              Apply range
+            </button>
+
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={() => {
+                setStartDate("1987-05-20");
+                setEndDate("2022-11-14");
+                setFilteredPrices([]);
+              }}
+            >
+              Reset
+            </button>
+          </div>
+      
           <div className="chart-container">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart
@@ -362,7 +456,7 @@ useEffect(() => {
 
                 {selectedEvent?.event_date && (
                   <ReferenceLine
-                    x={selectedEvent.event_date}
+                    x={toMonthEndDate(selectedEvent.event_date)}
                     stroke="#d97706"
                     strokeWidth={2}
                     strokeDasharray="4 4"
