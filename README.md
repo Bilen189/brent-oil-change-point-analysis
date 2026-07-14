@@ -108,3 +108,34 @@ Generated model outputs are stored in:
 - `data/processed/event_association_results.csv`
 
 Visualizations are stored in `reports/figures/`.
+
+## Dashboard Screenshots
+
+### Dashboard Overview
+
+![Dashboard overview](reports/screenshots/dashboard_overview.png)
+
+The dashboard presents historical Brent prices, key summary indicators, the
+Bayesian change-point estimate, and before-and-after price statistics.
+
+### Event Highlighting
+
+![Event highlighting](reports/screenshots/dashboard_event_highlight.png)
+
+Users can select a geopolitical, economic, or OPEC-related event to display
+its date on the price chart and review its description, category, expected
+market channel, and source.
+
+### Date-Range Filtering
+
+![Date filtering](reports/screenshots/dashboard_date_filter.png)
+
+The dashboard supports custom start and end dates, allowing users to focus on
+specific historical periods and market disruptions.
+
+### Responsive Layout
+
+![Responsive dashboard](reports/screenshots/dashboard_mobile_view.png)
+
+The React interface adapts to narrower screens by stacking cards, charts, and
+event details for tablet and mobile viewing.
